@@ -28,6 +28,7 @@ public class MyApplication extends Application {
         mcityDB = openCityDB();
         initCityList();
     }
+
     private void initCityList(){
         mCityList = new ArrayList<City>();
         new Thread(new Runnable() {
@@ -37,6 +38,7 @@ public class MyApplication extends Application {
             }
         }).start();
     }
+
     private boolean prepareCityList(){
         mCityList = mcityDB.getAllCity();
         int i =0;
@@ -50,6 +52,7 @@ public class MyApplication extends Application {
         Log.d(TAG,"i="+i);
         return true;
     }
+
     public List<City> getmCityList(){
         return mCityList;
     }
@@ -59,6 +62,8 @@ public class MyApplication extends Application {
     public static MyApplication getInstance(){
         return myApplication;
     }
+
+
     private CityDB openCityDB() {
         String path = "/data"
                 + Environment.getDataDirectory().getAbsolutePath()

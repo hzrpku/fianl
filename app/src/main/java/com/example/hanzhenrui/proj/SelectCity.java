@@ -1,7 +1,9 @@
 package com.example.hanzhenrui.proj;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -57,13 +59,17 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 String returnCityName = mSearchResult.get(i);
                 Toast.makeText(SelectCity.this,"你已选择： "+returnCityName,Toast.LENGTH_SHORT).show();
                 returnCode = nameToCode.get(returnCityName);
+                SharedPreferences sharedPreferences =getSharedPreferences("config",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("main_city_code",returnCode);
+                editor.commit();//必须要提交
                 cityselected.setText("当前城市： "+returnCityName);
 
             }
         });
 
 
-        searchView = (SearchView) findViewById(R.id.search);//
+        searchView = (SearchView) findViewById(R.id.search);
         searchView.setIconified(true);//需要点击搜索图标才展开搜索框
         searchView.setQueryHint("请输入城市名称或拼音");//隐藏文字
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

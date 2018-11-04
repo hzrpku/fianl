@@ -1,5 +1,6 @@
 package com.example.hanzhenrui.proj;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
@@ -39,7 +40,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         public void handleMessage(android.os.Message msg){
             switch (msg.what){
                 case UPDATE_TODAY_WEATHER:
-                    updateTodayWeather((TodayWeather)msg.obj);
+                    updateTodayWeather((TodayWeather)msg.obj);  //更新天气
                     break;
                     default:
                         break;
@@ -60,19 +61,11 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         windTv = (TextView) findViewById(R.id.wind);
         weatherImg = (ImageView) findViewById(R.id.weather_img);
 
-        city_name_Tv.setText("N/A");
-        cityTv.setText("N/A");
-        timeTv.setText("N/A");
-        humidityTv.setText("N/A");
-        pmDataTv.setText("N/A");
-        pmQualityTv.setText("N/A");
-        weekTv.setText("N/A");
-        temperatureTv.setText("N/A");
-        climateTv.setText("N/A");
-        windTv.setText("N/A");
+
+
 
     }
-    void updateTodayWeather(TodayWeather todayWeather){
+    void updateTodayWeather(TodayWeather todayWeather){   //更新天气
         city_name_Tv.setText(todayWeather.getCity()+"天气");
         cityTv.setText(todayWeather.getCity());
         timeTv.setText(todayWeather.getUpdatetime()+"发布");
@@ -94,8 +87,15 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_layout);
         mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn);
-        //增加点击事件
-        mUpdateBtn.setOnClickListener(this);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("config",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
+        String cityCode = sharedPreferences.getString("main_city_code","101010100");
+        queryWeatherCode(cityCode);//调用获取网络数据的方法
+
+
+        mUpdateBtn.setOnClickListener(this);//增加点击事件
         if (NetUtil.getNetworkState(this) != NetUtil.NETWORK_NONE){
            // Log.d("myweather","网络已连接");
             Toast.makeText(FirstActivity.this,"网络已连接",Toast.LENGTH_LONG).show();
@@ -119,10 +119,10 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.title_update_btn){
             SharedPreferences sharedPreferences = getSharedPreferences("config",MODE_PRIVATE);
             String cityCode = sharedPreferences.getString("main_city_code","101010100");
-            Log.d("myweather",cityCode);
-            if (NetUtil.getNetworkState(this) != NetUtil.NETWORK_NONE){
+            Log.d("myweather",cityCode);//通过SharedPreferences读取城市id，缺省为北京的id
+            if (NetUtil.getNetworkState(this) != NetUtil.NETWORK_NONE){  //若检查到网络已经连接
                 Log.d("myweather","网络已连接");
-                queryWeatherCode(cityCode);
+                queryWeatherCode(cityCode);//调用获取网络数据的方法
             }
             else{
                 Log.d("myweather","网络未连接");
@@ -133,11 +133,11 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode==1 && resultCode ==RESULT_OK){
             String newCityCode =data.getStringExtra("cityCode");
-            Log.d("myweather","选择的城市代码为"+newCityCode);
+            //Log.d("myweather","选择的城市代码为"+newCityCode);
 
             if(NetUtil.getNetworkState(this)!=NetUtil.NETWORK_NONE){
                 Log.d("myweather","网络已连接");
-                queryWeatherCode(newCityCode);
+                queryWeatherCode(newCityCode);//根据选择更新天气
 
             }
             else{
@@ -146,7 +146,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-    private void queryWeatherCode(String cityCode){
+    private void queryWeatherCode(String cityCode){//一种获取网络数据的方法
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + cityCode;
         Log.d("myweather",address);
         new Thread(new Runnable() {
@@ -171,7 +171,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                     }
                     String responseStr = response.toString();
                     //Log.d("myweather",responseStr);
-                    todayWeather = parseXML(responseStr);
+                    todayWeather = parseXML(responseStr);   //解析获取到的网络数据以得到一个天气对象
                     if (todayWeather!=null){
                         Log.d("myweather",todayWeather.toString());
                         Message msg = new Message();

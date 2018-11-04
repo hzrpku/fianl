@@ -62,7 +62,7 @@ public class TodayWeather {
     public void setShidu(String shidu){
         this.shidu = shidu;
     }
-    public void  setPm25(String pm25){
+    public void setPm25(String pm25){
         this.pm25 = pm25;
     }
     public void setQuality(String quality){
