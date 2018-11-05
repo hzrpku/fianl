@@ -5,7 +5,7 @@ public class TodayWeather {
     private String updatetime;
     private String wendu;
     private String shidu;
-    private String pm25;
+    private String pm25=null;
     private String quality;
     private String fengxiang;
     private String fengli;
@@ -27,7 +27,11 @@ public class TodayWeather {
         return shidu;
     }
     public String getPm25(){
-        return pm25;
+        if (pm25!=null)
+            return pm25;
+        else {
+            return "0";
+        }
     }
     public String getQuality(){
         return quality;

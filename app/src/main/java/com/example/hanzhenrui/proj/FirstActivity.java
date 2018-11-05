@@ -2,8 +2,10 @@ package com.example.hanzhenrui.proj;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -23,9 +25,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import cn.pku.hzr.bean.Cn2Spell;
 import cn.pku.hzr.bean.TodayWeather;
 import cn.pku.hzr.util.NetUtil;
 
@@ -66,11 +70,65 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
 
     }
     void updateTodayWeather(TodayWeather todayWeather){   //更新天气
+
+        int pmValue =Integer.parseInt(todayWeather.getPm25().trim());
+        String pmImgStr ="0_50";
+        if (pmValue>=0&&pmValue<=50){
+          pmImgStr ="0_50";
+        }
+        else if (pmValue>=51&&pmValue<=100){
+            pmImgStr="51_100";
+        }
+        else if (pmValue>=101&&pmValue<=150){
+            pmImgStr="101_150";
+        }
+        else if (pmValue>=151&&pmValue<=200){
+            pmImgStr="151_200";
+        }
+        else if(pmValue>=201&&pmValue<301){
+            pmImgStr="201_300";
+        }
+        else if(pmValue>=301){
+            pmImgStr = "greater_300";
+        }
+        String typeImg = "biz_plugin_weather_"+Cn2Spell.converterToSpell(todayWeather.getType());
+        R.mipmap mipmap = new R.mipmap();
+        Class aClass = mipmap.getClass();
+        int typeId =-1;
+        int pmImgId = -1;
+        try{
+            Field field = aClass.getField(typeImg);//反射，通过变量名称生成field对象
+            Object value = field.get(aClass); //获得变量的值
+            typeId = (int)value;
+            Field pmField =aClass.getField("biz_plugin_weather_" + pmImgStr);//反射，通过变量名称生成field对象
+            Object pmImg0 = pmField.get(aClass);//获得变量的值
+            pmImgId = (int)pmImg0;
+        }catch (Exception e){
+            if (-1==typeId)
+                typeId =R.mipmap.biz_plugin_weather_qing;
+            if (-1==pmImgId)
+                pmImgId = R.mipmap.biz_plugin_weather_0_50;
+        }finally {
+            Drawable drawable = ContextCompat.getDrawable(this,typeId);
+            weatherImg.setImageDrawable(drawable);
+            drawable =ContextCompat.getDrawable(this,pmImgId);
+            pmImg.setImageDrawable(drawable);
+            Toast.makeText(FirstActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
         city_name_Tv.setText(todayWeather.getCity()+"天气");
         cityTv.setText(todayWeather.getCity());
         timeTv.setText(todayWeather.getUpdatetime()+"发布");
         humidityTv.setText("湿度："+todayWeather.getShidu());
-        pmDataTv.setText(todayWeather.getPm25());
+        if (todayWeather.getPm25()=="0")
+            pmDataTv.setText(" ");
+        else {
+            pmDataTv.setText(todayWeather.getPm25());
+        }
         pmQualityTv.setText(todayWeather.getQuality());
         weekTv.setText(todayWeather.getDate());
         temperatureTv.setText(todayWeather.getLow()+"~"+todayWeather.getHigh());
