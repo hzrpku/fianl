@@ -23,18 +23,20 @@
         android:layout_toRightOf="@id/title_city_manager"
         android:background="#A71717"
         />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/title_city_name"
-        android:layout_toRightOf="@id/city_seperator"
-        android:gravity="center_vertical"
-        android:paddingLeft="5dip"
-        android:text="北京天气"
-        android:textColor="#ffffffff"
-        android:textSize="22.0sp"
 
-        />
+        <TextView
+            android:id="@+id/title_city_name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_toEndOf="@+id/title_city_manager"
+            android:layout_toRightOf="@+id/title_city_manager"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dip"
+            android:text="北京天气"
+            android:textColor="#ffffffff"
+            android:textSize="22.0sp" />
     <ImageView
         android:layout_width="45.0dip"
         android:layout_height="45.0dip"
@@ -181,7 +183,7 @@
             android:layout_below="@id/humidity"
             android:layout_centerInParent="true"
             android:layout_marginTop="5.0dip"
-            
+
             >
             <ImageView
                 android:layout_width="wrap_content"
@@ -198,7 +200,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/weather_img"
                 android:singleLine="true"
-                android:text="今天 星期三"
+                android:text="今天星期三"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 />
@@ -247,5 +249,207 @@
 
 
     </RelativeLayout>
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/wind"
+    >
+    <TextView
+        android:id="@+id/pred"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="未来三天天气预报"
+        android:layout_marginTop="8dip"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+
+        />
+
+</RelativeLayout>
+
+
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pred"
+        android:layout_marginTop="20.0dip"
+        android:layout_marginLeft="16dip"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/next1"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22.0sp"
+        android:layout_marginTop="5dip"
+        android:singleLine="true"
+        android:layout_centerHorizontal="true"
+        android:text="10日星期五"
+        />
+    <ImageView
+        android:id="@+id/next1weather"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/next1"
+        android:src="@mipmap/biz_plugin_weather_qing"
+        />
+    <TextView
+        android:id="@+id/next1text1"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/next1weather"
+        android:text="-2°C~7°C"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22.0sp"
+        android:textColor="@android:color/white"
+        />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/next1text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多云转晴"
+            android:textSize="22.0sp"
+            android:layout_below="@id/next1text1"
+            android:textColor="@android:color/white"
+            />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/next1text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微风"
+            android:textSize="22.0sp"
+            android:layout_below="@id/next1text2"
+            android:textColor="@android:color/white"
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/next2"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="11日星期六"
+        android:textSize="22.0sp"
+        android:layout_marginTop="5dip"
+        android:textColor="@android:color/white"
+        />
+
+
+
+        <ImageView
+            android:id="@+id/next2weather"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/next2"
+            android:src="@mipmap/biz_plugin_weather_qing"
+            />
+
+        <TextView
+            android:id="@+id/next2text1"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/next2weather"
+            android:text="-2°C~7°C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22.0sp"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:id="@+id/next2text2"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多云转晴"
+            android:textSize="22.0sp"
+            android:layout_below="@id/next2text1"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:id="@+id/next2text3"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微风"
+            android:textSize="22.0sp"
+            android:layout_below="@id/next2text2"
+            android:textColor="@android:color/white"
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/next3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="12日星期六"
+            android:textSize="22.0sp"
+            android:layout_marginTop="5dip"
+            android:textColor="@android:color/white"
+            />
+
+        <ImageView
+            android:id="@+id/next3weather"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/next3"
+            android:src="@mipmap/biz_plugin_weather_qing"
+            />
+        <TextView
+            android:id="@+id/next3text1"
+            android:layout_below="@+id/next3weather"
+            android:text="-2°C~7°C"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22.0sp"
+            android:textColor="@android:color/white"
+            />
+        <TextView
+            android:id="@+id/next3text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多云转晴"
+            android:layout_centerHorizontal="true"
+            android:textSize="22.0sp"
+            android:layout_below="@id/next3text1"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:id="@+id/next3text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微风"
+            android:layout_centerHorizontal="true"
+            android:textSize="22.0sp"
+            android:layout_below="@id/next3text2"
+            android:textColor="@android:color/white"
+            />
+        </RelativeLayout>
+
+    </LinearLayout>
 </LinearLayout>
 </RelativeLayout>

@@ -132,7 +132,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
                // String select_cityCode = listcity.get(position).getNumber();
                 Intent i = new Intent();
                 i.putExtra("cityCode",returnCode);
-                setResult(RESULT_OK,i);
+                setResult(RESULT_OK,i);//
                 finish();
                 break;
             default:
